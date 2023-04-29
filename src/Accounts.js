@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { connect } from "react-redux";
-import { addBook, removeBook } from "./Actions";
+import { addAccount, removeAccount } from "./Actions";
 import SelectDropdown from "react-native-select-dropdown";
 
 const initialState = {
@@ -18,7 +18,7 @@ const initialState = {
   date: "",
 };
 
-class Books extends Component {
+class Accounts extends Component {
   state = initialState;
 
   // key와 value 두개의 인수를 사용하는 udateInput 메서드
@@ -33,17 +33,17 @@ class Books extends Component {
   };
 
   //dispatch 호출 (connect 함수의 props로 참조)
-  addBook = () => {
-    this.props.dispatchAddBook(this.state);
+  addAccount = () => {
+    this.props.dispatchAddAccount(this.state);
     this.setState(initialState);
   };
 
-  removeBook = (account) => {
-    this.props.dispatchRemoveBook(account);
+  removeAccount = (account) => {
+    this.props.dispatchRemoveAccount(account);
   };
 
   render() {
-    const { books } = this.props;
+    const { accounts } = this.props;
     const inout = ["수입", "지출"];
     return (
       <View style={styles.container}>
@@ -51,15 +51,15 @@ class Books extends Component {
         <Text>수입또는 지출 금액 분류 날짜</Text>
         <ScrollView
           keyboardShouldPersistTaps="always"
-          style={styles.bookContainer}
+          style={styles.accountContainer}
         >
-          {books.map((account, index) => (
+          {accounts.map((account, index) => (
             <View style={styles.account} key={index}>
               <Text style={styles.income}>{account.income}</Text>
               <Text style={styles.income}>{account.amount}</Text>
               <Text style={styles.income}>{account.classification}</Text>
               <Text style={styles.income}>{account.date}</Text>
-              <Text onPress={() => this.removeBook(account)}>삭제</Text>
+              <Text onPress={() => this.removeAccount(account)}>삭제</Text>
             </View>
           ))}
         </ScrollView>
@@ -97,7 +97,7 @@ class Books extends Component {
               onChangeText={(value) => this.updateInput("date", value)}
             />
           </View>
-          <TouchableOpacity onPress={this.addBook}>
+          <TouchableOpacity onPress={this.addAccount}>
             <View style={styles.submitBtn}>
               <Text style={styles.btnText}>등록</Text>
             </View>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  bookContainer: {
+  accountContainer: {
     borderTopWidth: 1,
     borderTopColor: "#bbb",
     flex: 1,
@@ -172,13 +172,13 @@ const styles = StyleSheet.create({
 
 //리덕스의 상태 객체를 인수로 전달받고 하나의 키를 포함한 객체를 반환
 const mapStateToProps = (state) => ({
-  books: state.bookReducers.books,
+  accounts: state.bookReducers.accounts,
 });
 
 const mapDispatchToProps = {
-  dispatchAddBook: (account) => addBook(account),
-  dispatchRemoveBook: (account) => removeBook(account),
+  dispatchAddAccount: (account) => addAccount(account),
+  dispatchRemoveAccount: (account) => removeAccount(account),
 };
 
 // connect : 값을 반환해주는 함수
-export default connect(mapStateToProps, mapDispatchToProps)(Books);
+export default connect(mapStateToProps, mapDispatchToProps)(Accounts);

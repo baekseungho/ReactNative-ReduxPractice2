@@ -1,10 +1,10 @@
 //초기 상태
-import { ADD_BOOK, REMOVE_BOOK } from "../Actions";
+import { ADD_ACCOUNT, REMOVE_ACCOUNT } from "../Actions";
 import uuid from "react-native-uuid";
 import "react-native-get-random-values";
 
 const initialState = {
-  books: [
+  accounts: [
     {
       icome: "수입",
       amount: "3000",
@@ -17,16 +17,18 @@ const initialState = {
 
 const bookReducers = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_BOOK: //두번째 인수값의 type이 ADD_BOOK이면 새 books 배열을 반환
+    case ADD_ACCOUNT: //두번째 인수값의 type이 ADD_BOOK이면 새 books 배열을 반환
       return {
-        books: [...state.books, action.book],
+        accounts: [...state.accounts, action.account],
       };
-    case REMOVE_BOOK:
-      const index = state.books.findIndex((book) => book.id === action.book.id);
+    case REMOVE_ACCOUNT:
+      const index = state.accounts.findIndex(
+        (account) => account.id === action.account.id
+      );
       return {
-        books: [
-          ...state.books.slice(0, index),
-          ...state.books.slice(index + 1),
+        accounts: [
+          ...state.accounts.slice(0, index),
+          ...state.accounts.slice(index + 1),
         ],
       };
 
