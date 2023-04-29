@@ -56,7 +56,7 @@ class Accounts extends Component {
           {accounts.map((account, index) => (
             <View style={styles.account} key={index}>
               <Text style={styles.income}>{account.income}</Text>
-              <Text style={styles.income}>{account.amount}</Text>
+              <Text style={styles.income}>{account.amount}원</Text>
               <Text style={styles.income}>{account.classification}</Text>
               <Text style={styles.income}>{account.date}</Text>
               <Text onPress={() => this.removeAccount(account)}>삭제</Text>
@@ -65,8 +65,10 @@ class Accounts extends Component {
         </ScrollView>
         {/* 작성 폼 */}
         <View style={styles.formContainer}>
-          <View style={styles.inputContainer}>
+          <View>
             <SelectDropdown
+              buttonStyle={styles.inputBox}
+              buttonTextStyle={{ fontSize: 16 }}
               data={inout}
               onSelect={(selectedItem, index) => {
                 this.updateInput("income", selectedItem);
@@ -134,6 +136,9 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 15,
     color: "#888",
+  },
+  selectContainer: {
+    backgroundColor: "#fff",
   },
   formContainer: {
     flexDirection: "row",
