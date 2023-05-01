@@ -21,6 +21,18 @@ const initialState = {
 class Accounts extends Component {
   state = initialState;
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isEditing: false,
+    };
+  }
+
+  _updateText = () => {
+    this.setState({ isEditing: true });
+    console.log(this.state.isEditing);
+  };
+
   // key와 value 두개의 인수를 사용하는 udateInput 메서드
   // ...연산자를 이용해서 state를 업데이트
   // ...연산자는 기존의 state 키-값 쌍들을 새 state에 저장한 후
@@ -45,6 +57,8 @@ class Accounts extends Component {
   render() {
     const { accounts } = this.props;
     const inout = ["수입", "지출"];
+    const { isEditing } = this.state;
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>가게부</Text>
@@ -99,11 +113,18 @@ class Accounts extends Component {
               onChangeText={(value) => this.updateInput("date", value)}
             />
           </View>
-          <TouchableOpacity onPress={this.addAccount}>
-            <View style={styles.submitBtn}>
-              <Text style={styles.btnText}>등록</Text>
-            </View>
-          </TouchableOpacity>
+          <View style={{ flexDirection: "column" }}>
+            <TouchableOpacity onPress={this.addAccount}>
+              <View style={styles.submitBtn}>
+                <Text style={styles.btnText}>등록</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._updateText}>
+              <View style={styles.submitBtn}>
+                <Text style={styles.btnText}>수정</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );
@@ -167,6 +188,8 @@ const styles = StyleSheet.create({
     backgroundColor: "skyblue",
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 4,
+    marginBottom: 4,
   },
   btnText: {
     color: "white",
